@@ -5,7 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "build": "electron-builder"
+    "build": "electron-builder",
+    "build:win": "electron-builder --win", 
+    "build:linux": "electron-builder --linux",
+    "build:mac": "electron-builder --mac"
   },
   "build": {
     "appId": "com.exemplo.serverthermalprinter",
@@ -14,7 +17,7 @@
       "target": "dmg"
     },
     "win": {
-      "target": "nsis"
+      "target": "portable"
     },
     "linux": {
       "target": "AppImage"
