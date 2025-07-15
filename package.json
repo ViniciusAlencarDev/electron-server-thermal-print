@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
     "build": "electron-builder",
-    "build:win": "electron-builder --win", 
+    "build:win": "electron-builder --win",
     "build:linux": "electron-builder --linux",
     "build:mac": "electron-builder --mac"
   },
@@ -32,6 +32,8 @@
     "electron-builder": "^25.1.8"
   },
   "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "escpos": "^3.0.0-alpha.6",
     "escpos-usb": "^3.0.0-alpha.4",

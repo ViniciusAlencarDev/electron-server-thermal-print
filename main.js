@@ -1,21 +1,28 @@
 const { app, BrowserWindow } = require('electron')
+require('@electron/remote/main').initialize()
 
 let mainWindow
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 325,
-    height: 85,
+    width: 450,
+    height: 230,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true
     },
     autoHideMenuBar: true
   })
 
+  require('@electron/remote/main').enable(mainWindow.webContents)
   mainWindow.loadFile('index.html')
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow();
+  global.print = print;
+})
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -27,6 +34,7 @@ app.on('window-all-closed', () => {
 // Server
 
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 const escpos= require( 'escpos');
 const escposUSB = require('escpos-usb');
@@ -35,6 +43,9 @@ dotenv.config();
 
 const app2 = express()
 app2.use(express.json())
+app2.use(cors({
+  origin: '*',
+}));
 
 const port = Number(process.env.PORT) || 3030;
 app2.listen(port, () => console.log(`Server started in port ${port}`))
